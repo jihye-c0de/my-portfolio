@@ -24,7 +24,7 @@ function Navbar() {
       position="sticky"
       elevation={0}
       sx={{
-        backgroundColor: 'var(--color-secondary)',
+        background: 'var(--gradient-brand)',
         borderBottom: '1px solid var(--color-bg-secondary)',
       }}
     >
@@ -33,7 +33,7 @@ function Navbar() {
           <Typography
             variant="h6"
             component="div"
-            sx={{ fontWeight: 700, color: 'var(--color-bg-primary)' }}
+            sx={{ fontWeight: 700, color: 'var(--color-secondary)' }}
           >
             My Portfolio
           </Typography>
@@ -42,9 +42,9 @@ function Navbar() {
             onChange={(_event, value) => navigate(value)}
             textColor="inherit"
             sx={{
-              '& .MuiTab-root': { color: 'var(--color-primary-light)' },
-              '& .Mui-selected': { color: 'var(--color-bg-primary) !important' },
-              '& .MuiTabs-indicator': { backgroundColor: 'var(--color-primary)' },
+              '& .MuiTab-root': { color: 'var(--color-secondary)', opacity: 0.6 },
+              '& .Mui-selected': { color: 'var(--color-secondary) !important', opacity: 1 },
+              '& .MuiTabs-indicator': { backgroundColor: 'var(--color-primary-dark)' },
             }}
           >
             {NAV_ITEMS.map((item) => (

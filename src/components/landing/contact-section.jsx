@@ -10,8 +10,8 @@ function ContactSection() {
         py: { xs: 6, md: 10 },
         px: { xs: 2, md: 3 },
         textAlign: 'center',
-        backgroundColor: 'var(--color-secondary)',
-        color: 'var(--color-bg-primary)',
+        background: 'var(--gradient-brand)',
+        color: 'var(--color-secondary)',
       }}
     >
       <Typography

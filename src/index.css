@@ -22,6 +22,9 @@
   --color-button-hover: #00A89D;
   --color-link: #1B2E5C;
   --color-link-hover: #FF8FB1;
+
+  /* Brand Gradient (가벼운 느낌의 섹션 배경용) */
+  --gradient-brand: linear-gradient(135deg, #E3FBF8 0%, #B4F1EA 45%, #5FE8DC 100%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,6 +36,7 @@
     --color-text-muted: #777777;
     --color-primary: #2EE6D9;
     --color-secondary: #7C93C9;
+    --gradient-brand: linear-gradient(135deg, #16302E 0%, #1B3F3B 45%, #16504A 100%);
   }
 }
 

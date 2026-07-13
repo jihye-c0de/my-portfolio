@@ -10,8 +10,8 @@ function HeroSection() {
         py: { xs: 8, md: 12 },
         px: { xs: 2, md: 3 },
         textAlign: 'center',
-        backgroundColor: 'var(--color-secondary)',
-        color: 'var(--color-bg-primary)',
+        background: 'var(--gradient-brand)',
+        color: 'var(--color-secondary)',
       }}
     >
       <Typography
