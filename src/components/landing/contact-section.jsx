@@ -7,8 +7,20 @@ import ContactInfoCard from '../ui/contact-info-card.jsx';
 import GuestbookBoard from '../ui/guestbook-board.jsx';
 
 const FOLDER_TABS = [
-  { label: 'GUESTBOOK', color: 'var(--color-primary-light)', offset: 2 },
-  { label: 'CONTACT', color: 'var(--color-secondary)', offset: 1 },
+  {
+    label: 'GUESTBOOK',
+    glass: 'rgba(95, 232, 220, 0.32)',
+    border: 'rgba(255, 255, 255, 0.5)',
+    top: 0,
+    zIndex: 8,
+  },
+  {
+    label: 'CONTACT',
+    glass: 'rgba(27, 46, 92, 0.45)',
+    border: 'rgba(255, 255, 255, 0.4)',
+    top: 34,
+    zIndex: 9,
+  },
 ];
 
 function ContactSection() {
@@ -36,7 +48,7 @@ function ContactSection() {
             transform: isOpen ? 'rotateX(-180deg)' : 'rotateX(0deg)',
           }}
         >
-          {/* 접힌 상태: 겹쳐진 폴더 탭 */}
+          {/* 접힌 상태: 반투명 글라스 폴더 탭 */}
           <Box
             onClick={() => setIsOpen(true)}
             sx={{
@@ -45,7 +57,11 @@ function ContactSection() {
               backfaceVisibility: 'hidden',
               visibility: isOpen ? 'hidden' : 'visible',
               cursor: 'pointer',
-              height: { xs: 220, md: 260 },
+              height: { xs: 240, md: 280 },
+              borderRadius: 4,
+              background: 'var(--gradient-brand)',
+              overflow: 'hidden',
+              p: { xs: 2, md: 3 },
             }}
           >
             {FOLDER_TABS.map((tab) => (
@@ -53,42 +69,65 @@ function ContactSection() {
                 key={tab.label}
                 sx={{
                   position: 'absolute',
-                  top: tab.offset * 20,
-                  left: `${tab.offset * 5}%`,
-                  right: `${tab.offset * 2}%`,
-                  height: { xs: 130, md: 160 },
-                  borderRadius: '16px 16px 0 0',
-                  backgroundColor: tab.color,
-                  boxShadow: '0 -6px 16px rgba(27, 46, 92, 0.1)',
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  px: 3,
-                  pt: 1.5,
+                  top: tab.top,
+                  left: '4%',
+                  right: '4%',
+                  zIndex: tab.zIndex,
                   transition: 'transform 0.3s ease',
-                  zIndex: 10 - tab.offset,
                   '&:hover': { transform: 'translateY(-6px)' },
                 }}
               >
-                <Typography
+                {/* 인덱스처럼 튀어나온 탭 */}
+                <Box
                   sx={{
-                    fontWeight: 700,
-                    letterSpacing: 1,
-                    fontSize: '0.75rem',
-                    color: 'var(--color-bg-primary)',
+                    width: 96,
+                    height: 28,
+                    ml: 'auto',
+                    mr: { xs: 2, md: 3 },
+                    borderRadius: '10px 10px 0 0',
+                    backgroundColor: tab.glass,
+                    backdropFilter: 'blur(14px)',
+                    WebkitBackdropFilter: 'blur(14px)',
+                    border: `1px solid ${tab.border}`,
+                    borderBottom: 'none',
+                  }}
+                />
+                {/* 폴더 본체 */}
+                <Box
+                  sx={{
+                    height: { xs: 120, md: 150 },
+                    borderRadius: '16px 0 16px 16px',
+                    backgroundColor: tab.glass,
+                    backdropFilter: 'blur(14px)',
+                    WebkitBackdropFilter: 'blur(14px)',
+                    border: `1px solid ${tab.border}`,
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    px: 3,
+                    pt: 1.5,
                   }}
                 >
-                  ( {tab.label} )
-                </Typography>
+                  <Typography
+                    sx={{
+                      fontWeight: 700,
+                      letterSpacing: 1,
+                      fontSize: '0.75rem',
+                      color: 'var(--color-bg-primary)',
+                    }}
+                  >
+                    ( {tab.label} )
+                  </Typography>
+                </Box>
               </Box>
             ))}
             <Typography
               sx={{
                 position: 'absolute',
-                bottom: 0,
+                bottom: 12,
                 left: '50%',
                 transform: 'translateX(-50%)',
                 fontSize: '0.85rem',
-                color: 'var(--color-text-secondary)',
+                color: 'var(--color-secondary)',
                 zIndex: 20,
               }}
             >

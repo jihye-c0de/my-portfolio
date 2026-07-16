@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Grow from '@mui/material/Grow';
-import ExpandMoreRounded from '@mui/icons-material/ExpandMoreRounded';
 import { supabase } from '../../lib/supabase.js';
 import GuestbookForm from './guestbook-form.jsx';
 import GuestbookPaper from './guestbook-paper.jsx';
 
-const STACK_PREVIEW_STYLES = [
-  { transform: 'rotate(0deg)', zIndex: 3 },
-  { transform: 'rotate(-3deg) translateY(10px)', zIndex: 2, opacity: 0.9 },
-  { transform: 'rotate(2deg) translateY(20px)', zIndex: 1, opacity: 0.75 },
+const STACK_OFFSETS = [
+  { transform: 'translate(0px, 0px) scale(1)', opacity: 1, zIndex: 3 },
+  { transform: 'translate(16px, -16px) scale(0.97)', opacity: 0.65, zIndex: 2 },
+  { transform: 'translate(32px, -32px) scale(0.94)', opacity: 0.4, zIndex: 1 },
 ];
+
+const LEAVE_STYLE = { transform: 'translate(12px, -90px) scale(0.95)', opacity: 0 };
+const ADVANCE_DELAY_MS = 350;
 
 function GuestbookBoard() {
   const [entries, setEntries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLeaving, setIsLeaving] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -54,10 +55,27 @@ function GuestbookBoard() {
 
     if (!error && data) {
       setEntries((previous) => [data, ...previous]);
-      setIsExpanded(true);
+      setCurrentIndex(0);
     }
     setIsSubmitting(false);
   };
+
+  const handleAdvance = () => {
+    if (entries.length <= 1 || isLeaving) {
+      return;
+    }
+    setIsLeaving(true);
+    setTimeout(() => {
+      setCurrentIndex((previous) => (previous + 1) % entries.length);
+      setIsLeaving(false);
+    }, ADVANCE_DELAY_MS);
+  };
+
+  const stackCount = Math.min(entries.length, STACK_OFFSETS.length);
+  const visibleEntries = Array.from(
+    { length: stackCount },
+    (_, index) => entries[(currentIndex + index) % entries.length],
+  );
 
   return (
     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -85,65 +103,56 @@ function GuestbookBoard() {
         </Typography>
       )}
 
-      {!isLoading && entries.length > 0 && !isExpanded && (
+      {!isLoading && entries.length > 0 && (
         <Box
-          onClick={() => setIsExpanded(true)}
           sx={{
             position: 'relative',
-            width: '100%',
-            height: { xs: 140, md: 160 },
-            cursor: 'pointer',
-            mb: { xs: 2, md: 3 },
+            borderRadius: 4,
+            background: 'var(--gradient-brand)',
+            p: { xs: 3, md: 4 },
+            pb: { xs: 5, md: 6 },
           }}
         >
-          {entries.slice(0, 3).map((entry, index) => (
-            <GuestbookPaper
-              key={entry.id}
-              entry={entry}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                transition: 'transform 0.3s ease',
-                ...STACK_PREVIEW_STYLES[index],
-              }}
-            />
-          ))}
-          <Button
-            endIcon={<ExpandMoreRounded />}
+          <Box
+            onClick={handleAdvance}
             sx={{
-              position: 'absolute',
-              bottom: -8,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              zIndex: 4,
-              color: 'var(--color-secondary)',
-              backgroundColor: 'var(--color-bg-primary)',
-              boxShadow: '0 4px 10px rgba(27, 46, 92, 0.15)',
-              '&:hover': { backgroundColor: 'var(--color-bg-primary)' },
+              position: 'relative',
+              width: '100%',
+              minHeight: { xs: 220, md: 260 },
+              cursor: entries.length > 1 ? 'pointer' : 'default',
             }}
           >
-            방명록 {entries.length}개 펼쳐보기
-          </Button>
-        </Box>
-      )}
+            {visibleEntries.map((entry, index) => (
+              <GuestbookPaper
+                key={entry.id}
+                entry={entry}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease',
+                  ...STACK_OFFSETS[index],
+                  ...(index === 0 && isLeaving ? LEAVE_STYLE : {}),
+                }}
+              />
+            ))}
+          </Box>
 
-      {!isLoading && entries.length > 0 && isExpanded && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          {entries.map((entry, index) => (
-            <Grow key={entry.id} in timeout={400} style={{ transitionDelay: `${Math.min(index, 6) * 80}ms` }}>
-              <Box>
-                <GuestbookPaper entry={entry} />
-              </Box>
-            </Grow>
-          ))}
-          <Button
-            onClick={() => setIsExpanded(false)}
-            sx={{ alignSelf: 'center', color: 'var(--color-text-secondary)' }}
-          >
-            접기
-          </Button>
+          {entries.length > 1 && (
+            <Typography
+              sx={{
+                position: 'absolute',
+                bottom: 14,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                fontSize: '0.8rem',
+                color: 'var(--color-secondary)',
+              }}
+            >
+              탭하여 다음 방명록 보기 · {currentIndex + 1} / {entries.length}
+            </Typography>
+          )}
         </Box>
       )}
     </Box>

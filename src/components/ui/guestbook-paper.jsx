@@ -22,14 +22,17 @@ function GuestbookPaper({ entry, style = {} }) {
 
   return (
     <Paper
-      elevation={2}
+      elevation={0}
       sx={{
         width: '100%',
-        borderRadius: 2,
+        borderRadius: 3,
         px: { xs: 2.5, md: 3 },
         py: { xs: 2.5, md: 3 },
-        backgroundColor: 'var(--color-bg-primary)',
-        boxShadow: '0 6px 18px rgba(27, 46, 92, 0.1)',
+        backgroundColor: 'rgba(255, 255, 255, 0.55)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        border: '1px solid rgba(255, 255, 255, 0.6)',
+        boxShadow: '0 8px 24px rgba(27, 46, 92, 0.14)',
         ...style,
       }}
     >
