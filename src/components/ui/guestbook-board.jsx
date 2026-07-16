@@ -11,7 +11,7 @@ const STACK_OFFSETS = [
   { transform: 'translate(52px, 16px) scale(0.94)', zIndex: 1, boxShadow: '0 6px 16px rgba(27, 46, 92, 0.1)' },
 ];
 
-const LEAVE_STYLE = { transform: 'translate(0px, 130%) scale(0.98)' };
+const LEAVE_STYLE = { transform: 'translate(0px, 130%) scale(0.96)', opacity: 0 };
 const ADVANCE_DELAY_MS = 350;
 
 function GuestbookBoard() {
@@ -123,7 +123,7 @@ function GuestbookBoard() {
                   top: 0,
                   left: 0,
                   right: 0,
-                  transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease',
                   ...STACK_OFFSETS[index],
                   ...(index === 0 && isLeaving ? LEAVE_STYLE : {}),
                 }}

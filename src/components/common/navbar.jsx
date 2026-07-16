@@ -24,7 +24,7 @@ function Navbar() {
       position="sticky"
       elevation={0}
       sx={{
-        background: 'var(--gradient-brand)',
+        background: 'var(--color-mint)',
         borderBottom: '1px solid var(--color-bg-secondary)',
       }}
     >
