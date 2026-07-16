@@ -28,8 +28,8 @@ function ContactInfoCard() {
         borderRadius: 3,
         px: { xs: 3, md: 4 },
         py: { xs: 3, md: 4 },
-        backgroundColor: 'var(--color-bg-secondary)',
-        boxShadow: '0 8px 24px rgba(27, 46, 92, 0.08)',
+        backgroundColor: 'var(--color-bg-primary)',
+        boxShadow: '0 10px 28px rgba(27, 46, 92, 0.18)',
       }}
     >
       <Typography

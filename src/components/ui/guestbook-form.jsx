@@ -55,7 +55,8 @@ function GuestbookForm({ onSubmit, isSubmitting = false }) {
         gap: 2,
         p: { xs: 2.5, md: 3 },
         borderRadius: 2,
-        backgroundColor: 'var(--color-bg-secondary)',
+        backgroundColor: 'var(--color-bg-primary)',
+        boxShadow: '0 10px 28px rgba(27, 46, 92, 0.18)',
       }}
     >
       <Typography sx={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-secondary)' }}>

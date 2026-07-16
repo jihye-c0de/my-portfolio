@@ -6,12 +6,12 @@ import GuestbookForm from './guestbook-form.jsx';
 import GuestbookPaper from './guestbook-paper.jsx';
 
 const STACK_OFFSETS = [
-  { transform: 'translate(0px, 0px) scale(1)', zIndex: 3, backgroundColor: 'var(--color-bg-primary)' },
-  { transform: 'translate(28px, 8px) scale(0.97)', zIndex: 2, backgroundColor: 'var(--color-primary-light)' },
-  { transform: 'translate(52px, 16px) scale(0.94)', zIndex: 1, backgroundColor: 'var(--color-bg-secondary)' },
+  { transform: 'translate(0px, 0px) scale(1)', zIndex: 3, boxShadow: '0 10px 28px rgba(27, 46, 92, 0.18)' },
+  { transform: 'translate(28px, 8px) scale(0.97)', zIndex: 2, boxShadow: '0 8px 20px rgba(27, 46, 92, 0.14)' },
+  { transform: 'translate(52px, 16px) scale(0.94)', zIndex: 1, boxShadow: '0 6px 16px rgba(27, 46, 92, 0.1)' },
 ];
 
-const LEAVE_STYLE = { transform: 'translate(130%, 0px) scale(0.98)' };
+const LEAVE_STYLE = { transform: 'translate(0px, 130%) scale(0.98)' };
 const ADVANCE_DELAY_MS = 350;
 
 function GuestbookBoard() {
