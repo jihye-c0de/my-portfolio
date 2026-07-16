@@ -2,10 +2,11 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import Slide from '@mui/material/Slide';
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import ContactInfoCard from '../ui/contact-info-card.jsx';
 import GuestbookBoard from '../ui/guestbook-board.jsx';
+
+const TAB_AREA_HEIGHT = { xs: 260, md: 310 };
 
 const FOLDER_TABS = [
   {
@@ -16,6 +17,7 @@ const FOLDER_TABS = [
     top: 0,
     align: 'left',
     zIndex: 8,
+    riseMarginTop: { xs: '-260px', md: '-310px' },
   },
   {
     key: 'contact',
@@ -25,11 +27,13 @@ const FOLDER_TABS = [
     top: { xs: 76, md: 96 },
     align: 'right',
     zIndex: 9,
+    riseMarginTop: { xs: '-184px', md: '-214px' },
   },
 ];
 
 function ContactSection() {
   const [activePanel, setActivePanel] = useState(null);
+  const activeTab = FOLDER_TABS.find((tab) => tab.key === activePanel);
 
   return (
     <Box
@@ -44,13 +48,8 @@ function ContactSection() {
       }}
     >
       <Box sx={{ width: '100%', maxWidth: 720 }}>
-        {/* 폴더 탭: 항상 표시 */}
-        <Box
-          sx={{
-            position: 'relative',
-            height: { xs: 260, md: 310 },
-          }}
-        >
+        <Box sx={{ position: 'relative', height: TAB_AREA_HEIGHT }}>
+          {/* 폴더 탭: 열리면 아래로 내려가며 사라짐 */}
           {FOLDER_TABS.map((tab) => (
             <Box
               key={tab.key}
@@ -62,8 +61,11 @@ function ContactSection() {
                 right: '4%',
                 zIndex: tab.zIndex,
                 cursor: 'pointer',
-                transition: 'transform 0.3s ease',
-                '&:hover': { transform: 'translateY(-6px)' },
+                transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease',
+                transform: activePanel ? 'translateY(70px)' : 'translateY(0)',
+                opacity: activePanel ? 0 : 1,
+                pointerEvents: activePanel ? 'none' : 'auto',
+                '&:hover': { transform: activePanel ? 'translateY(70px)' : 'translateY(-6px)' },
               }}
             >
               {/* 인덱스처럼 튀어나온 탭 */}
@@ -109,24 +111,38 @@ function ContactSection() {
               </Box>
             </Box>
           ))}
-          <Typography
-            sx={{
-              position: 'absolute',
-              bottom: 0,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              fontSize: '0.85rem',
-              color: 'var(--color-text-secondary)',
-              zIndex: 20,
-            }}
-          >
-            탭을 눌러 열어보기
-          </Typography>
+
+          {!activePanel && (
+            <Typography
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                fontSize: '0.85rem',
+                color: 'var(--color-text-secondary)',
+                zIndex: 20,
+              }}
+            >
+              탭을 눌러 열어보기
+            </Typography>
+          )}
         </Box>
 
-        {/* 파일에서 올라오는 종이: Contact */}
-        <Slide direction="up" in={activePanel === 'contact'} mountOnEnter unmountOnExit>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: -2 }}>
+        {/* 열린 탭이 있던 자리에서 종이가 올라오듯 등장 */}
+        {activeTab && (
+          <Box
+            key={activeTab.key}
+            sx={{
+              position: 'relative',
+              zIndex: 25,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              mt: activeTab.riseMarginTop,
+              animation: 'rise-up 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          >
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
               <IconButton
                 onClick={() => setActivePanel(null)}
@@ -137,26 +153,9 @@ function ContactSection() {
                 <CloseRounded fontSize="small" />
               </IconButton>
             </Box>
-            <ContactInfoCard />
+            {activeTab.key === 'contact' ? <ContactInfoCard /> : <GuestbookBoard />}
           </Box>
-        </Slide>
-
-        {/* 파일에서 올라오는 종이: 방명록 */}
-        <Slide direction="up" in={activePanel === 'guestbook'} mountOnEnter unmountOnExit>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: -2 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <IconButton
-                onClick={() => setActivePanel(null)}
-                aria-label="접기"
-                size="small"
-                sx={{ color: 'var(--color-text-secondary)' }}
-              >
-                <CloseRounded fontSize="small" />
-              </IconButton>
-            </Box>
-            <GuestbookBoard />
-          </Box>
-        </Slide>
+        )}
       </Box>
     </Box>
   );

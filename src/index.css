@@ -40,6 +40,17 @@
   }
 }
 
+@keyframes rise-up {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 /* CSS 초기화 */
 * {
   box-sizing: border-box;
