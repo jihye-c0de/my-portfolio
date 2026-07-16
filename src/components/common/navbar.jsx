@@ -25,7 +25,7 @@ function Navbar() {
       elevation={0}
       sx={{
         background: 'var(--color-mint)',
-        borderBottom: '1px solid var(--color-bg-secondary)',
+        boxShadow: '0 2px 10px rgba(27, 46, 92, 0.12)',
       }}
     >
       <Container maxWidth="lg">
