@@ -12,13 +12,15 @@ const FOLDER_TABS = [
     glass: 'rgba(95, 232, 220, 0.32)',
     border: 'rgba(255, 255, 255, 0.5)',
     top: 0,
+    align: 'left',
     zIndex: 8,
   },
   {
     label: 'CONTACT',
     glass: 'rgba(27, 46, 92, 0.45)',
     border: 'rgba(255, 255, 255, 0.4)',
-    top: 34,
+    top: { xs: 76, md: 96 },
+    align: 'right',
     zIndex: 9,
   },
 ];
@@ -57,11 +59,7 @@ function ContactSection() {
               backfaceVisibility: 'hidden',
               visibility: isOpen ? 'hidden' : 'visible',
               cursor: 'pointer',
-              height: { xs: 240, md: 280 },
-              borderRadius: 4,
-              background: 'var(--gradient-brand)',
-              overflow: 'hidden',
-              p: { xs: 2, md: 3 },
+              height: { xs: 260, md: 310 },
             }}
           >
             {FOLDER_TABS.map((tab) => (
@@ -82,8 +80,8 @@ function ContactSection() {
                   sx={{
                     width: 96,
                     height: 28,
-                    ml: 'auto',
-                    mr: { xs: 2, md: 3 },
+                    ml: tab.align === 'left' ? { xs: 2, md: 3 } : 'auto',
+                    mr: tab.align === 'left' ? 'auto' : { xs: 2, md: 3 },
                     borderRadius: '10px 10px 0 0',
                     backgroundColor: tab.glass,
                     backdropFilter: 'blur(14px)',
@@ -96,13 +94,13 @@ function ContactSection() {
                 <Box
                   sx={{
                     height: { xs: 120, md: 150 },
-                    borderRadius: '16px 0 16px 16px',
+                    borderRadius: tab.align === 'left' ? '0 16px 16px 16px' : '16px 0 16px 16px',
                     backgroundColor: tab.glass,
                     backdropFilter: 'blur(14px)',
                     WebkitBackdropFilter: 'blur(14px)',
                     border: `1px solid ${tab.border}`,
                     display: 'flex',
-                    justifyContent: 'flex-end',
+                    justifyContent: tab.align === 'left' ? 'flex-start' : 'flex-end',
                     px: 3,
                     pt: 1.5,
                   }}
@@ -112,7 +110,7 @@ function ContactSection() {
                       fontWeight: 700,
                       letterSpacing: 1,
                       fontSize: '0.75rem',
-                      color: 'var(--color-bg-primary)',
+                      color: tab.align === 'left' ? 'var(--color-secondary)' : 'var(--color-bg-primary)',
                     }}
                   >
                     ( {tab.label} )
@@ -123,11 +121,11 @@ function ContactSection() {
             <Typography
               sx={{
                 position: 'absolute',
-                bottom: 12,
+                bottom: 0,
                 left: '50%',
                 transform: 'translateX(-50%)',
                 fontSize: '0.85rem',
-                color: 'var(--color-secondary)',
+                color: 'var(--color-text-secondary)',
                 zIndex: 20,
               }}
             >

@@ -104,15 +104,7 @@ function GuestbookBoard() {
       )}
 
       {!isLoading && entries.length > 0 && (
-        <Box
-          sx={{
-            position: 'relative',
-            borderRadius: 4,
-            background: 'var(--gradient-brand)',
-            p: { xs: 3, md: 4 },
-            pb: { xs: 5, md: 6 },
-          }}
-        >
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box
             onClick={handleAdvance}
             sx={{
@@ -142,12 +134,9 @@ function GuestbookBoard() {
           {entries.length > 1 && (
             <Typography
               sx={{
-                position: 'absolute',
-                bottom: 14,
-                left: '50%',
-                transform: 'translateX(-50%)',
+                textAlign: 'center',
                 fontSize: '0.8rem',
-                color: 'var(--color-secondary)',
+                color: 'var(--color-text-secondary)',
               }}
             >
               탭하여 다음 방명록 보기 · {currentIndex + 1} / {entries.length}

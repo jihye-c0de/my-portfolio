@@ -4,11 +4,14 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import EmailRounded from '@mui/icons-material/EmailRounded';
+import LocationOnRounded from '@mui/icons-material/LocationOnRounded';
 import GitHub from '@mui/icons-material/GitHub';
 import LinkedIn from '@mui/icons-material/LinkedIn';
 import Instagram from '@mui/icons-material/Instagram';
 
-const EMAIL = 'your.email@example.com';
+const NAME = '이지혜';
+const EMAIL = 'wg3927@naver.com';
+const LOCATION = '전남광주통합특별시 북구';
 
 const SNS_LINKS = [
   { label: 'GitHub', href: 'https://github.com/yourusername', Icon: GitHub },
@@ -34,13 +37,24 @@ function ContactInfoCard() {
           fontSize: { xs: '1.1rem', md: '1.3rem' },
           fontWeight: 700,
           color: 'var(--color-secondary)',
-          mb: 2.5,
+          mb: 0.5,
         }}
       >
         Contact
       </Typography>
 
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2.5 }}>
+      <Typography
+        sx={{
+          fontSize: { xs: '0.95rem', md: '1rem' },
+          fontWeight: 600,
+          color: 'var(--color-text-primary)',
+          mb: 2.5,
+        }}
+      >
+        {NAME}
+      </Typography>
+
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
         <EmailRounded sx={{ color: 'var(--color-primary-dark)' }} />
         <Typography
           component="a"
@@ -53,6 +67,18 @@ function ContactInfoCard() {
           }}
         >
           {EMAIL}
+        </Typography>
+      </Box>
+
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2.5 }}>
+        <LocationOnRounded sx={{ color: 'var(--color-primary-dark)' }} />
+        <Typography
+          sx={{
+            fontSize: { xs: '0.95rem', md: '1rem' },
+            color: 'var(--color-text-primary)',
+          }}
+        >
+          {LOCATION}
         </Typography>
       </Box>
 
