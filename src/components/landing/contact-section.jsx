@@ -1,7 +1,19 @@
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import CloseRounded from '@mui/icons-material/CloseRounded';
+import ContactInfoCard from '../ui/contact-info-card.jsx';
+import GuestbookBoard from '../ui/guestbook-board.jsx';
+
+const FOLDER_TABS = [
+  { label: 'GUESTBOOK', color: 'var(--color-primary-light)', offset: 2 },
+  { label: 'CONTACT', color: 'var(--color-secondary)', offset: 1 },
+];
 
 function ContactSection() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Box
       component="section"
@@ -9,30 +21,109 @@ function ContactSection() {
         width: '100%',
         py: { xs: 6, md: 10 },
         px: { xs: 2, md: 3 },
-        textAlign: 'center',
-        background: 'var(--gradient-brand)',
-        color: 'var(--color-secondary)',
+        backgroundColor: 'var(--color-bg-primary)',
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
-      <Typography
-        sx={{
-          fontSize: { xs: '1.5rem', md: '2rem' },
-          fontWeight: 500,
-          mb: 2,
-        }}
-      >
-        Contact
-      </Typography>
-      <Typography
-        sx={{
-          fontSize: { xs: '1rem', md: '1.2rem' },
-          lineHeight: 1.6,
-          maxWidth: 640,
-          mx: 'auto',
-        }}
-      >
-        여기는 Contact 섹션입니다. 연락처, SNS, 간단한 메시지 폼이 들어갈 예정입니다.
-      </Typography>
+      <Box sx={{ width: '100%', maxWidth: 720, perspective: '1600px' }}>
+        <Box
+          sx={{
+            position: 'relative',
+            width: '100%',
+            transformStyle: 'preserve-3d',
+            transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+            transform: isOpen ? 'rotateX(-180deg)' : 'rotateX(0deg)',
+          }}
+        >
+          {/* 접힌 상태: 겹쳐진 폴더 탭 */}
+          <Box
+            onClick={() => setIsOpen(true)}
+            sx={{
+              position: isOpen ? 'absolute' : 'relative',
+              inset: 0,
+              backfaceVisibility: 'hidden',
+              visibility: isOpen ? 'hidden' : 'visible',
+              cursor: 'pointer',
+              height: { xs: 220, md: 260 },
+            }}
+          >
+            {FOLDER_TABS.map((tab) => (
+              <Box
+                key={tab.label}
+                sx={{
+                  position: 'absolute',
+                  top: tab.offset * 20,
+                  left: `${tab.offset * 5}%`,
+                  right: `${tab.offset * 2}%`,
+                  height: { xs: 130, md: 160 },
+                  borderRadius: '16px 16px 0 0',
+                  backgroundColor: tab.color,
+                  boxShadow: '0 -6px 16px rgba(27, 46, 92, 0.1)',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  px: 3,
+                  pt: 1.5,
+                  transition: 'transform 0.3s ease',
+                  zIndex: 10 - tab.offset,
+                  '&:hover': { transform: 'translateY(-6px)' },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontWeight: 700,
+                    letterSpacing: 1,
+                    fontSize: '0.75rem',
+                    color: 'var(--color-bg-primary)',
+                  }}
+                >
+                  ( {tab.label} )
+                </Typography>
+              </Box>
+            ))}
+            <Typography
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                fontSize: '0.85rem',
+                color: 'var(--color-text-secondary)',
+                zIndex: 20,
+              }}
+            >
+              눌러서 열어보기
+            </Typography>
+          </Box>
+
+          {/* 펼쳐진 상태: Contact + 방명록 */}
+          <Box
+            sx={{
+              position: isOpen ? 'relative' : 'absolute',
+              inset: 0,
+              backfaceVisibility: 'hidden',
+              transform: 'rotateX(180deg)',
+              visibility: isOpen ? 'visible' : 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: { xs: 3, md: 4 },
+            }}
+          >
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <IconButton
+                onClick={() => setIsOpen(false)}
+                aria-label="접기"
+                size="small"
+                sx={{ color: 'var(--color-text-secondary)' }}
+              >
+                <CloseRounded fontSize="small" />
+              </IconButton>
+            </Box>
+            <ContactInfoCard />
+            <GuestbookBoard />
+          </Box>
+        </Box>
+      </Box>
     </Box>
   );
 }
