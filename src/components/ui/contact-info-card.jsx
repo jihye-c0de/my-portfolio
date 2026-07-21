@@ -28,7 +28,7 @@ function ContactInfoCard() {
         borderRadius: 3,
         px: { xs: 3, md: 4 },
         py: { xs: 3, md: 4 },
-        backgroundColor: 'var(--color-bg-primary)',
+        backgroundColor: 'var(--color-surface)',
         boxShadow: '0 10px 28px rgba(27, 46, 92, 0.18)',
       }}
     >

@@ -12,6 +12,10 @@
   --color-bg-primary: #FFFFFF;
   --color-bg-secondary: #F5F7FA;
 
+  /* Surface Colors (카드/박스 전용 - 배경과 구분되는 표면) */
+  --color-surface: #FFFFFF;
+  --color-card-border: rgba(27, 46, 92, 0.08);
+
   /* Text Colors */
   --color-text-primary: #222222;
   --color-text-secondary: #767676;
@@ -31,6 +35,8 @@
   :root {
     --color-bg-primary: #121212;
     --color-bg-secondary: #1E1E1E;
+    --color-surface: #262626;
+    --color-card-border: rgba(255, 255, 255, 0.08);
     --color-text-primary: #F5F5F5;
     --color-text-secondary: #B0B0B0;
     --color-text-muted: #777777;

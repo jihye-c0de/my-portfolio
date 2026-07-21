@@ -37,7 +37,7 @@ function ProjectCard({ project }) {
         flexDirection: 'column',
         borderRadius: 3,
         overflow: 'hidden',
-        backgroundColor: 'var(--color-bg-primary)',
+        backgroundColor: 'var(--color-surface)',
         boxShadow: '0 10px 28px rgba(27, 46, 92, 0.12)',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         '&:hover': {
