@@ -25,13 +25,25 @@ function ProjectsSection() {
     >
       <Typography
         sx={{
-          fontSize: { xs: '1.1rem', md: '1.3rem' },
-          fontWeight: 700,
+          fontSize: { xs: '1.5rem', md: '2rem' },
+          fontWeight: 500,
           color: 'var(--color-secondary)',
-          mb: 4,
+          mb: 2,
         }}
       >
         Projects
+      </Typography>
+      <Typography
+        sx={{
+          fontSize: { xs: '1rem', md: '1.2rem' },
+          lineHeight: 1.6,
+          maxWidth: 640,
+          mx: 'auto',
+          mb: 4,
+          color: 'var(--color-text-secondary)',
+        }}
+      >
+        직접 기획하고 개발한 대표 프로젝트들입니다.
       </Typography>
 
       {isLoading && (
