@@ -25,8 +25,8 @@ function ProjectsSection() {
     >
       <Typography
         sx={{
-          fontSize: { xs: '1.5rem', md: '2rem' },
-          fontWeight: 500,
+          fontSize: { xs: '1.75rem', md: '2.5rem' },
+          fontWeight: 800,
           color: 'var(--color-secondary)',
           mb: 2,
         }}
