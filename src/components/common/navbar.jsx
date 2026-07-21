@@ -33,7 +33,12 @@ function Navbar() {
           <Typography
             variant="h6"
             component="div"
-            sx={{ fontWeight: 700, color: 'var(--color-secondary)' }}
+            sx={{
+              fontWeight: 800,
+              fontSize: { xs: '1.15rem', md: '1.4rem' },
+              letterSpacing: '-0.02em',
+              color: 'var(--color-secondary)',
+            }}
           >
             My Portfolio
           </Typography>
@@ -42,8 +47,8 @@ function Navbar() {
             onChange={(_event, value) => navigate(value)}
             textColor="inherit"
             sx={{
-              '& .MuiTab-root': { color: 'var(--color-secondary)', opacity: 0.6 },
-              '& .Mui-selected': { color: 'var(--color-secondary) !important', opacity: 1 },
+              '& .MuiTab-root': { color: 'var(--color-secondary)', opacity: 0.6, fontWeight: 700 },
+              '& .Mui-selected': { color: 'var(--color-secondary) !important', opacity: 1, fontWeight: 800 },
               '& .MuiTabs-indicator': { backgroundColor: 'var(--color-primary-dark)' },
             }}
           >
