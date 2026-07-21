@@ -78,7 +78,7 @@ function HeroSection() {
           mb: 4,
         }}
       >
-        디자인과 개발을 넘나들며, 아이디어를 실제로 동작하는 화면으로 만듭니다.
+        디자인과 개발을 넘나들며, 아이디어를 실제로 동작하는 화면으로 구현합니다.
       </Typography>
 
       <Stack direction="row" spacing={2} justifyContent="center" flexWrap="wrap" useFlexGap>

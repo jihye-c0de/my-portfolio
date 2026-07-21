@@ -43,7 +43,7 @@ function SkillTreeSection() {
           color: 'var(--color-text-secondary)',
         }}
       >
-        디자인 툴부터 코드까지, 산업디자인 출신 개발자의 넓은 스펙트럼입니다.
+        디자인 툴부터 코드까지, 산업디자인을 전공한 개발자의 폭넓은 역량을 소개합니다.
       </Typography>
 
       <Grid container spacing={2} justifyContent="center" sx={{ maxWidth: 900, mx: 'auto' }}>
