@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -5,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 function AboutMeSection() {
+  const navigate = useNavigate();
+
   return (
     <Box
       component="section"
@@ -23,10 +26,11 @@ function AboutMeSection() {
           maxWidth: 600,
           width: '100%',
           textAlign: 'center',
-          backgroundColor: 'var(--color-bg-secondary)',
+          backgroundColor: 'var(--color-surface)',
+          boxShadow: '0 8px 20px rgba(27, 46, 92, 0.1)',
         }}
       >
-        <CardContent sx={{ py: { xs: 4, md: 6 } }}>
+        <CardContent sx={{ py: { xs: 4, md: 6 }, px: { xs: 3, md: 4 } }}>
           <Typography
             sx={{
               fontSize: { xs: '1rem', md: '1.2rem' },
@@ -35,10 +39,12 @@ function AboutMeSection() {
               mb: 3,
             }}
           >
-            여기는 About Me 섹션입니다. 간단한 자기소개와 &apos;더 알아보기&apos; 버튼이 들어갈 예정입니다.
+            산업디자인을 4년 공부하고, 흥미를 따라 웹디자인으로 넘어왔습니다.
+            사용자 경험과 디테일을 우선하면서도 깔끔한 결과물을 만드는 걸 좋아합니다.
           </Typography>
           <Button
             variant="contained"
+            onClick={() => navigate('/about')}
             sx={{
               backgroundColor: 'var(--color-button-primary)',
               '&:hover': { backgroundColor: 'var(--color-button-hover)' },
