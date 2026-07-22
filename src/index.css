@@ -8,9 +8,9 @@
   --color-secondary: #1B2E5C;
   --color-accent: #FF8FB1;
 
-  /* Background Colors */
-  --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F5F7FA;
+  /* Background Colors (민트끼가 도는 오프화이트 - 카드 표면과 명확히 구분) */
+  --color-bg-primary: #F1FAF9;
+  --color-bg-secondary: #E6F5F2;
 
   /* Surface Colors (카드/박스 전용 - 배경과 구분되는 표면) */
   --color-surface: #FFFFFF;
@@ -27,8 +27,8 @@
   --color-link: #1B2E5C;
   --color-link-hover: #FF8FB1;
 
-  /* Mint Accent (헤더/히어로 등 섹션 배경용) */
-  --color-mint: #E3FBF8;
+  /* Mint Accent (헤더/히어로 등 섹션 배경용 - 진하게) */
+  --color-mint: #A9E9DE;
 }
 
 @media (prefers-color-scheme: dark) {

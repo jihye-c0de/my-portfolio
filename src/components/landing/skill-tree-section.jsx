@@ -2,14 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import SkillCard from '../ui/skill-card.jsx';
-
-const SKILLS = [
-  { name: 'Illustrator', level: 80, note: '실무 툴' },
-  { name: 'Photoshop', level: 80, note: '실무 툴' },
-  { name: 'Figma', level: 70, note: '실무 툴' },
-  { name: 'Rhino', level: 80, note: '3D 감각' },
-  { name: 'React', level: 60, note: '빠르게 성장 중' },
-];
+import { SKILLS } from '../../data/skills-data.js';
 
 function SkillTreeSection() {
   return (

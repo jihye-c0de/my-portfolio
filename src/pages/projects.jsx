@@ -21,7 +21,7 @@ function Projects() {
         <Typography
           sx={{
             fontSize: { xs: '2rem', md: '3rem' },
-            fontWeight: 700,
+            fontWeight: 800,
             lineHeight: 1.2,
             textAlign: 'center',
             color: 'var(--color-secondary)',
