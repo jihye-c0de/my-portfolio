@@ -40,9 +40,12 @@ function ProjectCard({ project }) {
         backgroundColor: 'var(--color-surface)',
         boxShadow: '0 10px 28px rgba(27, 46, 92, 0.12)',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+        willChange: 'transform',
         '&:hover': {
           transform: 'scale(1.03)',
           boxShadow: '0 14px 32px rgba(27, 46, 92, 0.2)',
+          '& img': { transform: 'scale(1.1)' },
+          '& .project-thumb-overlay': { opacity: 1 },
         },
         '&:active': {
           transform: 'scale(0.98)',
@@ -51,6 +54,7 @@ function ProjectCard({ project }) {
     >
       <Box
         sx={{
+          position: 'relative',
           width: '100%',
           aspectRatio: '1 / 1',
           overflow: 'hidden',
@@ -62,8 +66,32 @@ function ProjectCard({ project }) {
           src={thumbnailUrl}
           alt={`${title} 스크린샷`}
           loading="lazy"
-          sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          sx={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            transition: 'transform 0.4s ease',
+            willChange: 'transform',
+          }}
         />
+        <Box
+          className="project-thumb-overlay"
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'flex-end',
+            p: 2,
+            background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.75) 100%)',
+            opacity: 0,
+            transition: 'opacity 0.3s ease',
+            pointerEvents: 'none',
+          }}
+        >
+          <Typography sx={{ color: '#fff', fontSize: '0.85rem', fontWeight: 700 }}>
+            자세히 보기 →
+          </Typography>
+        </Box>
       </Box>
 
       <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', px: { xs: 2, md: 3 }, py: { xs: 2, md: 2.5 } }}>

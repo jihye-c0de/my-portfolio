@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import { supabase } from '../../lib/supabase.js';
 import GuestbookForm from './guestbook-form.jsx';
 import GuestbookPaper from './guestbook-paper.jsx';
+import LoadingSpinner from './loading-spinner.jsx';
 
 const STACK_OFFSETS = [
   { transform: 'translate(0px, 0px) scale(1)', zIndex: 3, boxShadow: '0 10px 28px rgba(27, 46, 92, 0.18)' },
@@ -92,9 +93,12 @@ function GuestbookBoard() {
       <GuestbookForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
 
       {isLoading && (
-        <Typography sx={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
-          방명록을 불러오는 중...
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+          <LoadingSpinner size="small" />
+          <Typography sx={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
+            방명록을 불러오는 중...
+          </Typography>
+        </Box>
       )}
 
       {!isLoading && entries.length === 0 && (

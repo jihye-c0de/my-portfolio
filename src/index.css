@@ -29,21 +29,40 @@
 
   /* Mint Accent (헤더/히어로 등 섹션 배경용 - 진하게) */
   --color-mint: #A9E9DE;
+
+  /* Hero 섹션 배경 그라데이션 / 텍스트 */
+  --gradient-hero: linear-gradient(180deg, var(--color-primary-light) 0%, var(--color-bg-primary) 100%);
+  --color-hero-text: var(--color-secondary);
+  --hero-text-shadow: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg-primary: #121212;
-    --color-bg-secondary: #1E1E1E;
-    --color-surface: #262626;
-    --color-card-border: rgba(255, 255, 255, 0.08);
-    --color-text-primary: #F5F5F5;
-    --color-text-secondary: #B0B0B0;
-    --color-text-muted: #777777;
-    --color-primary: #2EE6D9;
-    --color-secondary: #7C93C9;
-    --color-mint: #16302E;
-  }
+/*
+ * 다크모드 색상 오버라이드.
+ * data-theme은 index.html의 인라인 스크립트가 첫 페인트 전에(깜빡임 없이) 설정하고,
+ * 이후 ThemeModeProvider가 토글/시스템 설정 변경에 따라 갱신한다.
+ */
+:root[data-theme='dark'] {
+  --color-bg-primary: #121212;
+  --color-bg-secondary: #1E1E1E;
+  --color-surface: #262626;
+  --color-card-border: rgba(255, 255, 255, 0.08);
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #B0B0B0;
+  --color-text-muted: #777777;
+  --color-primary: #2EE6D9;
+  --color-secondary: #7C93C9;
+  --color-mint: #16302E;
+  /* 다크 배경 위에서 얇은 outlined 버튼/링크가 묻히지 않도록 밝은 색으로 교체 */
+  --color-link: #2EE6D9;
+
+  /* 라이트 모드와 반대 방향: 텍스트가 있는 상단을 어둡게, 하단을 밝게 */
+  --gradient-hero: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-primary-light) 100%);
+  /*
+   * 그라데이션 하단(밝은 민트)에서도 밝은 텍스트 색이 묻히지 않도록
+   * 어두운 텍스트 섀도우로 보정한다.
+   */
+  --color-hero-text: var(--color-text-primary);
+  --hero-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
 }
 
 @keyframes rise-up {
@@ -66,9 +85,47 @@
   }
 }
 
+@keyframes bounce-down {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+  }
+}
+
+@keyframes float-shape {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-16px) scale(1.05);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 /* CSS 초기화 */
 * {
   box-sizing: border-box;
+}
+
+/* 다크모드 전환 시 CSS 변수 기반 색상들이 부드럽게 변하도록 전역 트랜지션 적용 */
+*, *::before, *::after {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, fill 0.35s ease, stroke 0.35s ease;
 }
 
 /* HTML, Body 초기화 */
@@ -77,6 +134,8 @@ html, body {
   padding: 0;
   width: 100%;
   min-height: 100vh;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
 /* Root 앱 컨테이너 설정 */
@@ -85,4 +144,10 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* 커스텀 커서 활성화 시 네이티브 커서 숨김 (a/button 등 UA 기본 cursor보다 우선하도록 전체 하위요소에 적용) */
+body.custom-cursor-active,
+body.custom-cursor-active * {
+  cursor: none !important;
 }

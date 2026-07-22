@@ -5,19 +5,11 @@ import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import EmailRounded from '@mui/icons-material/EmailRounded';
 import LocationOnRounded from '@mui/icons-material/LocationOnRounded';
-import GitHub from '@mui/icons-material/GitHub';
-import LinkedIn from '@mui/icons-material/LinkedIn';
-import Instagram from '@mui/icons-material/Instagram';
+import { SOCIAL_LINKS } from '../../data/social-links.js';
 
 const NAME = '이지혜';
 const EMAIL = 'wg3927@naver.com';
-const LOCATION = '전남광주통합특별시 북구';
-
-const SNS_LINKS = [
-  { label: 'GitHub', href: 'https://github.com/yourusername', Icon: GitHub },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/yourusername', Icon: LinkedIn },
-  { label: 'Instagram', href: 'https://instagram.com/yourusername', Icon: Instagram },
-];
+const LOCATION = '광주광역시 북구';
 
 function ContactInfoCard() {
   return (
@@ -85,7 +77,7 @@ function ContactInfoCard() {
       <Divider sx={{ mb: 2.5, borderColor: 'var(--color-text-muted)', opacity: 0.3 }} />
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        {SNS_LINKS.map(({ label, href, Icon }) => (
+        {SOCIAL_LINKS.map(({ label, href, Icon }) => (
           <IconButton
             key={label}
             component="a"

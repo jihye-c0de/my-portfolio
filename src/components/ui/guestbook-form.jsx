@@ -54,7 +54,7 @@ function GuestbookForm({ onSubmit, isSubmitting = false }) {
         flexDirection: 'column',
         gap: 2,
         p: { xs: 2.5, md: 3 },
-        borderRadius: 2,
+        borderRadius: 3,
         backgroundColor: 'var(--color-surface)',
         boxShadow: '0 10px 28px rgba(27, 46, 92, 0.18)',
       }}

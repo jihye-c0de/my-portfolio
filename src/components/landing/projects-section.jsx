@@ -5,6 +5,10 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { useProjects } from '../../hooks/use-projects.js';
 import ProjectCard from '../ui/project-card.jsx';
+import ProjectCardSkeleton from '../ui/project-card-skeleton.jsx';
+import ScrollReveal from '../ui/scroll-reveal.jsx';
+
+const STAGGER_STEP_MS = 100;
 
 const PREVIEW_LIMIT = 4;
 
@@ -47,9 +51,13 @@ function ProjectsSection() {
       </Typography>
 
       {isLoading && (
-        <Typography sx={{ color: 'var(--color-text-muted)', mb: 4 }}>
-          프로젝트를 불러오는 중...
-        </Typography>
+        <Grid container spacing={2} sx={{ justifyContent: 'center', maxWidth: 900, mx: 'auto', mb: 4 }}>
+          {Array.from({ length: PREVIEW_LIMIT }).map((_, index) => (
+            <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
+              <ProjectCardSkeleton />
+            </Grid>
+          ))}
+        </Grid>
       )}
 
       {!isLoading && projects.length === 0 && (
@@ -59,10 +67,12 @@ function ProjectsSection() {
       )}
 
       {!isLoading && projects.length > 0 && (
-        <Grid container spacing={2} justifyContent="center" sx={{ maxWidth: 900, mx: 'auto', mb: 4 }}>
-          {projects.map((project) => (
-            <Grid key={project.id} size={{ xs: 12, sm: 6 }}>
-              <ProjectCard project={project} />
+        <Grid container spacing={2} sx={{ justifyContent: 'center', maxWidth: 900, mx: 'auto', mb: 4 }}>
+          {projects.map((project, index) => (
+            <Grid key={project.id} size={{ xs: 12, sm: 6, md: 4 }}>
+              <ScrollReveal delay={index * STAGGER_STEP_MS}>
+                <ProjectCard project={project} />
+              </ScrollReveal>
             </Grid>
           ))}
         </Grid>

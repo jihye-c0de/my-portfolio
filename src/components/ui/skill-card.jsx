@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import AnimatedSkillBar from './animated-skill-bar.jsx';
+import { useInViewRef } from '../../hooks/use-in-view-ref.js';
+import { useCountUp } from '../../hooks/use-count-up.js';
 
 /**
  * SkillCard 컴포넌트
@@ -15,9 +18,12 @@ import Typography from '@mui/material/Typography';
  */
 function SkillCard({ name, level, note }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [ref, isInView] = useInViewRef();
+  const displayLevel = useCountUp(level, isInView);
 
   return (
     <Box
+      ref={ref}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       sx={{
@@ -45,29 +51,12 @@ function SkillCard({ name, level, note }) {
         {name}
       </Typography>
 
-      <Box
-        sx={{
-          width: '100%',
-          height: 6,
-          borderRadius: 99,
-          backgroundColor: 'var(--color-bg-secondary)',
-          overflow: 'hidden',
-          mb: 1,
-        }}
-      >
-        <Box
-          sx={{
-            width: `${level}%`,
-            height: '100%',
-            borderRadius: 99,
-            backgroundColor: 'var(--color-primary-dark)',
-            transition: 'width 0.6s ease',
-          }}
-        />
+      <Box sx={{ mb: 1 }}>
+        <AnimatedSkillBar level={level} isActive={isInView} />
       </Box>
 
       <Typography sx={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
-        {level}%
+        {displayLevel}%
       </Typography>
 
       <Typography

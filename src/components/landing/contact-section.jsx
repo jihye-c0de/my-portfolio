@@ -38,6 +38,7 @@ function ContactSection() {
   return (
     <Box
       component="section"
+      id="contact"
       sx={{
         width: '100%',
         py: { xs: 6, md: 10 },
@@ -47,7 +48,7 @@ function ContactSection() {
         justifyContent: 'center',
       }}
     >
-      <Box sx={{ width: '100%', maxWidth: 720 }}>
+      <Box sx={{ width: '100%', maxWidth: 900 }}>
         <Box sx={{ position: 'relative', height: TAB_AREA_HEIGHT }}>
           {/* 폴더 탭: 열리면 아래로 내려가며 사라짐 */}
           {FOLDER_TABS.map((tab) => (
